@@ -115,7 +115,7 @@
             $("button").eq(i).attr("id", "btnStart" + i);
             $("button").eq(i +1).addClass("btn btn-secondary");
             // startTime(selectedName, pause, 900000);
-            arrayAgent[i].temps(selectedName, pause, 900000, i);
+            arrayAgent[i].temps(selectedName, pause, 2000, i);
 
 
 
@@ -151,7 +151,7 @@
 
         // $(".modal").modal("toggle");
         // $("modal-body").append("<a></a>");
-        // $("modal-body,a").html(agent + " souhaite prendre une pause de " + pauseDurationString);
+        // $("modal-body,a").html(agent + " est en retard ! ");
 
         var countDownDate = new Date().getTime();
 
@@ -178,6 +178,22 @@
             clearInterval(x);
             document.getElementById("tester" + incrementId).innerHTML = "EXPIRED";
             $("#tester" + incrementId).css("background-color", "red");
+
+
+
+
+            // if (!$('.modal').is(':visible')) {
+            //
+            //   $("modal-body").append("<a></a>");
+            //   $("modal-body,a").html(agent + " est en retard ! ");
+            //
+            // }
+
+
+              $(".modal").modal("show");
+              $("modal-body").append("<a></a>");
+              $("modal-body,a").html(agent + " est en retard ! ");
+
 
 
 
