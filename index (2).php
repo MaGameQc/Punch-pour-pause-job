@@ -69,7 +69,7 @@
 
 <?php
 
-  <script>
+echo  <script>
     $(document).ready(function() {
 
 
