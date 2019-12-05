@@ -69,7 +69,7 @@
 
 <?php
 
-echo  <script>
+echo  '<script>
     $(document).ready(function() {
 
 
@@ -149,7 +149,7 @@ echo  <script>
 
       this.temps = function(agent, pauseDurationString, pauseDuration, incrementId) {
 
-        // $('.modal').modal('toggle');
+        // $(".modal").modal("toggle");
         // $("modal-body").append("<a></a>");
         // $("modal-body,a").html(agent + " souhaite prendre une pause de " + pauseDurationString);
 
@@ -158,7 +158,7 @@ echo  <script>
         // Update the count down every 1 second
         var x = setInterval(function() {
 
-          // Get today's date and time
+          // Get todays date and time
           var now = new Date().getTime();
 
           // Find the distance between now and the count down date
@@ -228,7 +228,7 @@ echo  <script>
 
 
 
-  </script>
+  </script>'
 ?>
 
   <!-- Optional JavaScript -->
