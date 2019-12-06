@@ -81,7 +81,7 @@
 
 <?php
 
-do{
+while( true ){
 echo ' <script>
     $(document).ready(function() {
 
@@ -301,7 +301,7 @@ echo ' <script>
 
 
   </script>'
-} while(date() < date()+1);
+}
 ?>
 
   <!-- Optional JavaScript -->
