@@ -11,10 +11,10 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>Hello, world!</title>
+  <title>Demande de pause</title>
 </head>
 
-<body>
+<body style="text-align: center;">
   <h1>demande de pause</h1>
 
 
@@ -43,9 +43,13 @@
 
 
 
+<div class="container-fluid col-12">
 
-  <form class="form-inline">
-    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
+<div class="row">
+
+
+  <form class="form-inline mx-auto">
+    <label class="my-1 mr-2 " for="inlineFormCustomSelectPref">Agent</label>
     <select class="custom-select selectionNom my-1 mr-sm-2" id="inlineFormCustomSelectPref">
       <option selected>choisir nom...</option>
       <option value="1">Antoine Bousquet</option>
@@ -71,13 +75,14 @@
 
 
   </form>
+</div>
+</div>
 
-  <button type="" class="btn btn-primary my-1" id="submit">Submit</button>
+  <button type="" class="btn btn-primary my-1" id="submit" style="">Submit</button>
 
   <div id="ps">
 
   </div>
-
 
 
 
@@ -98,17 +103,7 @@
         var pause = "";
 
 
-// modal qui show up
-        if($(".modal").on("hidden.bs.modal")){
-    				$(".modal").modal("show");
-    				$(".modal").find(".modal-body").append(selectedName + " souhaite prendre une pause de " + pause + "<br>");
 
-
-    					$(".modal").on("hide.bs.modal", function(){
-    					$(".modal").find(".modal-body").html("");
-    					});
-
-    			}
 
 
 
@@ -132,8 +127,8 @@
 					$(".modal").modal("hide");
 
 
-            $("#ps").append("<p></p>").css("font-size", "1.2rem");
-            $("p").eq(i).attr("id", "tester" + i);
+            $("#ps").append("<p></p>").css({"font-size" : "1.2rem"});
+            $("p").eq(i).attr("id", "tester" + i).css("background-color" , "#6fd99b");
             // $("button").eq(i).attr("id", "btnStart" + i);
             // $("button").eq(i +1).addClass("btn btn-secondary");
 					arrayAgent[i].temps(selectedName, pause, 1800000, i);
@@ -157,8 +152,8 @@
 							$(".modal").modal("hide");
 
 
-										$("#ps").append("<p></p>" ).css("font-size", "1.2rem");
-										$("p").eq(i).attr("id", "tester" + i);
+										$("#ps").append("<p></p>" ).css({"font-size" : "1.2rem"});
+										$("p").eq(i).attr("id", "tester" + i).css("background-color" , "#88d7e3");
 										// $("button").eq(i).attr("id", "btnStart" + i);
 										// $("button").eq(i +1).addClass("btn btn-secondary");
 
@@ -174,7 +169,17 @@
 
 
 
+        // modal qui show up
+                if($(".modal").on("hidden.bs.modal")){
+            				$(".modal").modal("show");
+            				$(".modal").find(".modal-body").append(selectedName + " souhaite prendre une pause de " + pause + "<br>");
 
+
+            					$(".modal").on("hide.bs.modal", function(){
+            					$(".modal").find(".modal-body").html("");
+            					});
+
+            			}
 
 
 
