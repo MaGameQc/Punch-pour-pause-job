@@ -24,7 +24,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Alerte</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -47,10 +47,21 @@
   <form class="form-inline">
     <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
     <select class="custom-select selectionNom my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-      <option selected>Choose...</option>
-      <option value="1">Taudet</option>
-      <option value="2">Csapina</option>
-      <option value="3">Aarchambeault</option>
+      <option selected>choisir nom...</option>
+      <option value="1">Antoine Bousquet</option>
+      <option value="2">Antoine Langlois</option>
+      <option value="3">Cédric Sapina</option>
+	  <option value="3">Danny Chénard</option>
+	  <option value="3">Francis La Rivière Morin</option>
+	  <option value="3">Gilles Gaudreault</option>
+	  <option value="3">Julien Van  Themsche</option>
+	  <option value="3">Kariane Riendeau</option>
+	  <option value="3">Percy Missengui</option>
+	  <option value="3">Rémy Cotnoir Thériault</option>
+	  <option value="3">Stephane Fabrice Eye</option>
+	  <option value="3">Tommy Audet</option>
+	  <option value="3">Thierry David 3</option>
+	  <option value="3">Étienne Dolbec</option>
     </select>
 
     <div class="custom-control custom-checkbox my-1 mr-sm-2">
@@ -83,44 +94,81 @@
 
         var selectedName = $("#inlineFormCustomSelectPref").children("option:selected").text();
         var pause = "";
-        // var agent1 = new Agents(selectedName, pause);
+
+
+// modal qui show up
+        if($(".modal").on('hidden.bs.modal')){
+    				$(".modal").modal("show");
+    				$(".modal").find(".modal-body").append(selectedName + " souhaite prendre une pause de " + pause + "<br>");
+
+
+    					$(".modal").on('hide.bs.modal', function(){
+    					$(".modal").find(".modal-body").html("");
+    					});
+
+    			}
+
+
 
         for (i = compteur - 1; i < compteur; i++) {
           arrayAgent.push(new Agents(selectedName, pause, i));
-          console.log(arrayAgent);
+          //array nom ,15 min, 0
+
           if ($("#customControlInline").prop("checked") == true) {
 
             pause = " pause de 30 min. ";
 
-            console.log(pause + selectedName);
+          /*  console.log(pause + selectedName);
             $("#ps").append("<p></p>").css("font-size", "1.2rem");
             $("p").eq(i).attr("id", "tester" + i);
             $("button").eq(i).attr("id", "btnStart" + i);
-            $("button").eq(i +1).addClass("btn btn-secondary");
+            $("button").eq(i +1).addClass("btn btn-secondary"); */
 
 
+			$(document).on("click", "#btnAccepter", function(){
+			for (i = compteur - 1; i < compteur; i++) {
+					$(".modal").modal("hide");
 
 
-              arrayAgent[i].temps(selectedName, pause, 1800000, i);
+            $("#ps").append("<p></p>").css("font-size", "1.2rem");
+            $("p").eq(i).attr("id", "tester" + i);
+            // $("button").eq(i).attr("id", "btnStart" + i);
+            // $("button").eq(i +1).addClass("btn btn-secondary");
+					arrayAgent[i].temps(selectedName, pause, 1800000, i);
+					// $(document).on("click", "#btnAccepter", false);
+					}
+				});
+              //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
           } else if ($("#customControlInline").prop("checked") == false) {
 
+                pause = " pause de 15 min. ";
 
-            pause = " pause de 15 min. ";
-            $("#ps").append("<p></p>" ).css("font-size", "1.2rem");
-            $("p").eq(i).attr("id", "tester" + i);
-            $("button").eq(i).attr("id", "btnStart" + i);
-            $("button").eq(i +1).addClass("btn btn-secondary");
             // startTime(selectedName, pause, 900000);
-            arrayAgent[i].temps(selectedName, pause, 900000, i);
 
 
+				$(document).on("click", "#btnAccepter", function(){
+					for (i = compteur - 1; i < compteur; i++) {
+							$(".modal").modal("hide");
+
+
+										$("#ps").append("<p></p>" ).css("font-size", "1.2rem");
+										$("p").eq(i).attr("id", "tester" + i);
+										// $("button").eq(i).attr("id", "btnStart" + i);
+										// $("button").eq(i +1).addClass("btn btn-secondary");
+
+							arrayAgent[i].temps(selectedName, pause, 900000, i);
+							// $(document).on("click", "#btnAccepter", false);
+
+						}
+				});
 
           }
         }
+
 
 
 
@@ -180,19 +228,25 @@
             $("#tester" + incrementId).css("background-color", "red");
 
 
+			if($(".modal").on('hidden.bs.modal')){
+				$(".modal").modal("show");
+			}
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-            // if (!$('.modal').is(':visible')) {
-            //
-            //   $("modal-body").append("<a></a>");
-            //   $("modal-body,a").html(agent + " est en retard ! ");
-            //
-            // }
+			var modalText = [];
 
+			if($(".modal").on('shown.bs.modal')){
+				 modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
+				 $(".modal").find(".modal-body").append("<a></a>");
+				 for(i=0; i<modalText.length; i++){
+					$(".modal").find(".modal-body").append(modalText[i]);
+				 }
 
-              $(".modal").modal("show");
-              $("modal-body").append("<a></a>");
-              $("modal-body,a").html(agent + " est en retard ! ");
+			}
 
 
 
