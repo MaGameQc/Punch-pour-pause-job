@@ -228,7 +228,7 @@ echo ' <script>
             $("#tester" + incrementId).css("background-color", "red");
 
 
-			if($(".modal").on('hidden.bs.modal')){
+			if($(".modal").on("hidden.bs.modal")){
 				$(".modal").modal("show");
 			}
 
@@ -239,7 +239,7 @@ echo ' <script>
 
 			var modalText = [];
 
-			if($(".modal").on('shown.bs.modal')){
+			if($(".modal").on("shown.bs.modal")){
 				 modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
 				 $(".modal").find(".modal-body").append("<a></a>");
 				 for(i=0; i<modalText.length; i++){
