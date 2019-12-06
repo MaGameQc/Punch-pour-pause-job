@@ -301,7 +301,7 @@ echo ' <script>
 
 
   </script>'
-} while(date() != date("12:00:00am"));
+} while(date() < date()+1);
 ?>
 
   <!-- Optional JavaScript -->
