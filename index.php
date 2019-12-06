@@ -81,7 +81,7 @@
 
 <?php
 
-do {
+do{
 echo ' <script>
     $(document).ready(function() {
 
@@ -301,7 +301,7 @@ echo ' <script>
 
 
   </script>'
-} while (date()!=date("h:i:sa"));
+} while(date() != date("12:00:00am"));
 ?>
 
   <!-- Optional JavaScript -->
