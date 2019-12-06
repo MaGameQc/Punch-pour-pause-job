@@ -97,12 +97,12 @@ echo ' <script>
 
 
 // modal qui show up
-        if($(".modal").on('hidden.bs.modal')){
+        if($(".modal").on("hidden.bs.modal")){
     				$(".modal").modal("show");
     				$(".modal").find(".modal-body").append(selectedName + " souhaite prendre une pause de " + pause + "<br>");
 
 
-    					$(".modal").on('hide.bs.modal', function(){
+    					$(".modal").on("hide.bs.modal", function(){
     					$(".modal").find(".modal-body").html("");
     					});
 
