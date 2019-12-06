@@ -80,6 +80,8 @@
 
 
 <?php
+
+do {
 echo ' <script>
     $(document).ready(function() {
 
@@ -299,6 +301,7 @@ echo ' <script>
 
 
   </script>'
+} while (date()!=date("h:i:sa"));
 ?>
 
   <!-- Optional JavaScript -->
