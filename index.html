@@ -3,9 +3,9 @@
 
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+
   <!--font obitron-->
-  <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -33,7 +33,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <a></a>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="btnAccepter">accepter</button>
@@ -80,9 +80,9 @@
 	  <option value="3">Étienne Dolbec</option>
     </select>
 	</div>
-	
 
-	
+
+
     <div class="custom-control custom-checkbox my-1 mr-sm-2">
       <input type="checkbox" class="custom-control-input" id="customControlInline">
       <label class="custom-control-label" for="customControlInline">cocher pour pause de 30 minutes</label>
@@ -103,13 +103,13 @@
 
 
  <script>
- 
- 
+
+
  /* mettre un pop() apres click sur deny
 delete instances.instance3;*/
- 
- 
- 
+
+
+
     $(document).ready(function() {
 
 
@@ -119,17 +119,17 @@ delete instances.instance3;*/
 
       $("#submit").on("click", function() {
 
-	  
-	  
-	  //////////////////////////////////////////////////////////////////////////----------------------------------------------------
-	  
-        compteur += 1;
-		
 
-        
+
+	  //////////////////////////////////////////////////////////////////////////----------------------------------------------------
+
+        compteur += 1;
+
+
+
         var pause = "";
 
-		
+
 		if($("#inputBox").val() != ""){
 			selectedName = $("#inputBox").val();
 		} else{
@@ -216,7 +216,7 @@ delete instances.instance3;*/
 
 
 
-			$("#inputBox").val(""); 
+			$("#inputBox").val("");
 
       });
 
@@ -225,7 +225,7 @@ delete instances.instance3;*/
 
 
 
-		
+
 
 
     });
@@ -279,7 +279,7 @@ delete instances.instance3;*/
 ///////////////////////////////////////////////////////////////////
 
 			var modalText = [];
-
+///////////////////////////////////////////<a voir si besoin de correction
 			if($(".modal").on("shown.bs.modal")){
 				 modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
 				 $(".modal").find(".modal-body").append("<a></a>");
@@ -288,12 +288,18 @@ delete instances.instance3;*/
 				 }
 				 $(".modal").on("hide.bs.modal", function(){
 					$('#btnAccepter').removeAttr("disabled");
+          for(e=0; e<modalText.length; e++){
+            $(".modal").find("<a></a>").eq(e).delete();
+          }
+
+
+
 				 });
-			 
-			
+          modalText = [];
+
 
 			}
-			
+
 
 
 
