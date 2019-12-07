@@ -3,6 +3,9 @@
 
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+  <!--font obitron-->
+  <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet"> 
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -45,9 +48,15 @@
 
 <div class="container-fluid col-12">
 
+
+
 <div class="row">
+	<div class="col-3 mx-auto">
+	<input class="form-control" type="text" placeholder="nom pas dans la liste? écrivez le ici, ensuite Submit" id="inputBox" style="display: inline-block; text-align: center;">
+	</div>
+</div>
 
-
+<div class="row">
   <form class="form-inline mx-auto">
     <label class="my-1 mr-2 " for="inlineFormCustomSelectPref">Agent</label>
     <select class="custom-select selectionNom my-1 mr-sm-2" id="inlineFormCustomSelectPref">
@@ -58,16 +67,22 @@
 	  <option value="3">Danny Chénard</option>
 	  <option value="3">Francis La Rivière Morin</option>
 	  <option value="3">Gilles Gaudreault</option>
+	  <option value="3">Jessy Darsigny</option>
 	  <option value="3">Julien Van  Themsche</option>
 	  <option value="3">Kariane Riendeau</option>
 	  <option value="3">Percy Missengui</option>
 	  <option value="3">Rémy Cotnoir Thériault</option>
+	  <option value="3">Sarah Bouthillier</option>
+	  <option value="3">Serge Malo</option>
 	  <option value="3">Stephane Fabrice Eye</option>
 	  <option value="3">Tommy Audet</option>
 	  <option value="3">Thierry David 3</option>
 	  <option value="3">Étienne Dolbec</option>
     </select>
+	</div>
+	
 
+	
     <div class="custom-control custom-checkbox my-1 mr-sm-2">
       <input type="checkbox" class="custom-control-input" id="customControlInline">
       <label class="custom-control-label" for="customControlInline">cocher pour pause de 30 minutes</label>
@@ -88,6 +103,13 @@
 
 
  <script>
+ 
+ 
+ /* mettre un pop() apres click sur deny
+delete instances.instance3;*/
+ 
+ 
+ 
     $(document).ready(function() {
 
 
@@ -97,11 +119,22 @@
 
       $("#submit").on("click", function() {
 
+	  
+	  
+	  //////////////////////////////////////////////////////////////////////////----------------------------------------------------
+	  
         compteur += 1;
+		
 
-        var selectedName = $("#inlineFormCustomSelectPref").children("option:selected").text();
+        
         var pause = "";
 
+		
+		if($("#inputBox").val() != ""){
+			selectedName = $("#inputBox").val();
+		} else{
+			var selectedName = $("#inlineFormCustomSelectPref").children("option:selected").text();
+		}
 
 
 
@@ -157,7 +190,7 @@
 										// $("button").eq(i).attr("id", "btnStart" + i);
 										// $("button").eq(i +1).addClass("btn btn-secondary");
 
-							arrayAgent[i].temps(selectedName, pause, 900000, i);
+							arrayAgent[i].temps(selectedName, pause, 2000, i);
 							// $(document).on("click", "#btnAccepter", false);
 
 						}
@@ -183,7 +216,7 @@
 
 
 
-
+			$("#inputBox").val(""); 
 
       });
 
@@ -192,7 +225,7 @@
 
 
 
-
+		
 
 
     });
@@ -237,6 +270,7 @@
 
 			if($(".modal").on("hidden.bs.modal")){
 				$(".modal").modal("show");
+				 $('#btnAccepter').attr("disabled", true);
 			}
 
 ///////////////////////////////////////////////////////////////////
@@ -252,8 +286,15 @@
 				 for(i=0; i<modalText.length; i++){
 					$(".modal").find(".modal-body").append(modalText[i]);
 				 }
+				 $(".modal").on("hide.bs.modal", function(){
+					$('#btnAccepter').removeAttr("disabled");
+				 });
+			 
+			
 
 			}
+			
+
 
 
 
