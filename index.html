@@ -104,7 +104,7 @@
 
  <script>
 
- function notifyMe(selectedName, pause) {
+ function notifyMe(selectedName, text, pause) {
    if (!("Notification" in window)) {
      alert("This browser does not support system notifications");
    }
@@ -122,7 +122,7 @@
    function notify() {
      var notification = new Notification('TITLE OF NOTIFICATION', {
        icon: 'https://rocky-lowlands-97412.herokuapp.com/',
-       body: selectedName + " souhaite prendre une " + pause,
+       body: selectedName + text + pause,
      });
 
      notification.onclick = function () {
@@ -146,6 +146,8 @@ $(document).ready(function() {
   var compteur = 0;
   var arrayAgent = [];
   var selectedName = "";
+  var Souhait = " souhaite prendre une ";
+  var retard = " est en retard ! "
 
   $("#submit").on("click", function() {
 
@@ -171,7 +173,7 @@ $(document).ready(function() {
 //show modal
   $(".modal").modal("show");
   $(".modal").find(".modal-body").append(selectedName + " souhaite prendre une " + pause + "<br>");
-  notifyMe(selectedName, pause);
+  notifyMe(selectedName, souhait, pause);
   });
 
 
@@ -251,6 +253,9 @@ $(document).ready(function() {
         document.getElementById("tester" + incrementId).innerHTML = "EXPIRED";
         $("#tester" + incrementId).css("background-color", "red");
         modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
+        notifyMe(agent, retard, pauseDurationString );
+
+
         for(i=0; i<modalText.length; i++){
 					$(".modal").find(".modal-body").append(modalText[i]);
 				 }
