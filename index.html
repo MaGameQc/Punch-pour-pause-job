@@ -104,7 +104,7 @@
 
  <script>
 
- function notifyMe() {
+ function notifyMe(selectedName, pause) {
    if (!("Notification" in window)) {
      alert("This browser does not support system notifications");
    }
@@ -121,8 +121,8 @@
 
    function notify() {
      var notification = new Notification('TITLE OF NOTIFICATION', {
-       icon: 'http://carnes.cc/jsnuggets_avatar.jpg',
-       body: "Hey! You are on notice!",
+       icon: 'https://rocky-lowlands-97412.herokuapp.com/',
+       body: selectedName + " souhaite prendre une " + pause,
      });
 
      notification.onclick = function () {
@@ -132,7 +132,7 @@
    }
 
  }
- notifyMe();
+
 
 
 
@@ -171,7 +171,7 @@ $(document).ready(function() {
 //show modal
   $(".modal").modal("show");
   $(".modal").find(".modal-body").append(selectedName + " souhaite prendre une " + pause + "<br>");
-
+  notifyMe(selectedName, pause);
   });
 
 
