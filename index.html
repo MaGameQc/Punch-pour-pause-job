@@ -147,9 +147,11 @@ $(document).ready(function() {
   var arrayAgent = [];
   var selectedName = "";
   var souhait = " souhaite prendre une ";
-  var retard = " est en retard ! "
+  var retard = " est en retard ! ";
+  var totalTimerDiv;
 
   $("#submit").on("click", function() {
+
 
 //check mon input text si j'ai enter dequoi
     if($("#inputBox").val() != ""){
@@ -184,18 +186,36 @@ $(document).ready(function() {
 
         arrayAgent.push(new Agents(selectedName, pause, i));
 
-        $("#ps").append("<p></p>").css({"font-size" : "1.2rem"});
+
+
+
+        // totalTimerDiv = $("#ps div").length;
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+//add <p>
+        // $("#timerDiv_"+i).eq(i).append("<p></p>").css({"font-size" : "1.2rem"});
+        // // $(".timerDiv p").eq(i).append("<button>stop</button>");
+        // console.log($("#timerDiv"+i).attr());
+//add button
+        // $("#ps button").eq(i).attr("id", "btnStop_" + i);
+        // $("#ps button").addClass("btn btn-primary p-1");
+
+        // $("#ps button").eq(i).on("click", function(){$("#ps div").eq(i).remove();});
+
+/////////////////////////////////////////////////////////////////////////
 
               // $("button").eq(i).attr("id", "btnStart" + i);
               // $("button").eq(i +1).addClass("btn btn-secondary");
               if ($("#customControlInline").prop("checked") == true) {
                   arrayAgent[i].temps(selectedName, pause, 1800000, i);
-                  $("p").eq(i).attr("id", "tester" + i).css("background-color" , "#6fd99b");
+                  $(".timerDiv p").eq(i).attr("id", "tester" + i).css("background-color" , "#6fd99b");
               }
 
               if ($("#customControlInline").prop("checked") == false) {
-                  arrayAgent[i].temps(selectedName, pause, 900000, i);
-                  $("p").eq(i).attr("id", "tester" + i).css("background-color" , "#88d7e3");
+                  arrayAgent[i].temps(selectedName, pause, 2000, i);
+                  $(".timerDiv p").eq(i).attr("id", "tester" + i).css("background-color" , "#88d7e3");
 
               }
 
@@ -207,6 +227,7 @@ $(document).ready(function() {
                   }
 
       }
+
     });
 
 
@@ -216,11 +237,31 @@ $(document).ready(function() {
   this.nom = nom;
   this.tempsString = tempsString;
 
-  this.temps = function(agent, pauseDurationString, pauseDuration, incrementId) {
+  this.temps = function(agent, pauseDurationString, pauseDuration, increment) {
 
-    // $(".modal").modal("toggle");
-    // $("modal-body").append("<a></a>");
-    // $("modal-body,a").html(agent + " est en retard ! ");
+//suppression de div à prévoir
+
+    $("#ps").append("<div></div>").css({"font-size" : "1.2rem"});
+    $("#ps div").eq(increment).addClass("timerDiv");
+    $(".timerDiv").eq(increment).append("<p></p>").css({"font-size" : "1.2rem"});
+    $(".timerDiv p").eq(increment).after("<button>stop</button>");
+    $(".timerDiv button").eq(increment).addClass("btn btn-primary btnStop");
+
+
+    $(".btnStop").eq(increment).on("click", function(){
+      // $(".timerDiv").eq(increment).remove();
+      // arrayAgent.splice(increment, 1);
+      clearInterval(x);
+
+
+
+      return;
+
+
+    });
+
+
+
 
     var countDownDate = new Date().getTime();
 
@@ -240,7 +281,7 @@ $(document).ready(function() {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      document.getElementById("tester" + incrementId).innerHTML =
+      document.getElementById("tester" + increment).innerHTML =
 
       minutes + "m " + seconds + "s "+ agent + pauseDurationString;
 
@@ -250,8 +291,8 @@ $(document).ready(function() {
           $('#btnAccepter').attr("disabled", true);
         $(".modal").modal("show");
         clearInterval(x);
-        document.getElementById("tester" + incrementId).innerHTML = "EXPIRED";
-        $("#tester" + incrementId).css("background-color", "red");
+        document.getElementById("tester" + increment).innerHTML = "EXPIRED";
+        $("#tester" + increment).css("background-color", "red");
         modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
         notifyMe(agent, retard, pauseDurationString );
 
@@ -263,6 +304,9 @@ $(document).ready(function() {
 					$('#btnAccepter').removeAttr("disabled");
           $(".modal").find(".modal-body").html("");
 				 });
+
+
+
 
 
 
@@ -285,12 +329,23 @@ $(document).ready(function() {
         // var minutesLabel = document.getElementById("minutes");
         // var secondsLabel = document.getElementById("seconds");
         var totalSeconds = 0;
-        setInterval(setTime, 1000);
+        var timerOut = setInterval(setTime, 1000);
+
+        $(".btnStop").eq(increment).on("click", function(){
+          // $(".timerDiv").eq(increment).remove();
+          // arrayAgent.splice(increment, 1);
+        clearInterval(timerOut);
+
+         return;
+        });
 
         function setTime() {
           ++totalSeconds;
-          document.getElementById("tester" + incrementId).innerHTML = agent + " en retard depuis :  " + pad(parseInt(totalSeconds / 60)) + " : " + pad(totalSeconds % 60);
+          document.getElementById("tester" + increment).innerHTML = agent + " en retard depuis :  " + pad(parseInt(totalSeconds / 60)) + " : " + pad(totalSeconds % 60);
           // document.getElementById("tester"+ incrementId).innerHTML = pad(parseInt(totalSeconds/60));
+
+
+
         }
 
         function pad(val) {
@@ -310,6 +365,8 @@ $(document).ready(function() {
 
 
     }, 1000);
+
+
 
   }
 
@@ -336,7 +393,11 @@ $(document).ready(function() {
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
