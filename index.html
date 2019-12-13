@@ -17,7 +17,7 @@
   <title>Demande de pause</title>
 </head>
 
-<body style="text-align: center;">
+<body style="text-align: center; display:none; background-color: #fcf9ea;" class="px-3">
   <h1>demande de pause</h1>
 
 
@@ -103,7 +103,6 @@
 
 
  <script>
-
  function notifyMe(selectedName, text, pause) {
    if (!("Notification" in window)) {
      alert("This browser does not support system notifications");
@@ -118,41 +117,28 @@
        }
      });
    }
-
    function notify() {
      var notification = new Notification(selectedName, {
        icon: 'https://rocky-lowlands-97412.herokuapp.com/',
        body: selectedName + text + pause,
      });
-
      notification.onclick = function () {
        window.open("https://rocky-lowlands-97412.herokuapp.com/");
      };
-     setTimeout(notification.close.bind(notification), 10000);
+     setTimeout(notification.close.bind(notification), 30000);
    }
-
  }
-
-
-
-
  /* mettre un pop() apres click sur deny
 delete instances.instance3;*/
-
-
-
 $(document).ready(function() {
-
+$("body").fadeIn(2000);
   var compteur = 0;
   var arrayAgent = [];
   var selectedName = "";
   var souhait = " souhaite prendre une ";
   var retard = " est en retard ! ";
   var totalTimerDiv;
-
   $("#submit").on("click", function() {
-
-
 //check mon input text si j'ai enter dequoi
     if($("#inputBox").val() != ""){
 			selectedName = $("#inputBox").val();
@@ -161,39 +147,25 @@ $(document).ready(function() {
 			selectedName = $("#inlineFormCustomSelectPref").children("option:selected").text();
       $("#inputBox").val("");
 		}
-
   //set pause if checkbox is checked or not
-
   if ($("#customControlInline").prop("checked") == true) {
     pause = " pause de 30 min. ";
   }
-
   if ($("#customControlInline").prop("checked") == false) {
     pause = " pause de 15 min. ";
   }
-
 //show modal
   $(".modal").modal("show");
   $(".modal").find(".modal-body").append(selectedName + " souhaite prendre une " + pause + "<br>");
   notifyMe(selectedName, souhait, pause);
   });
-
-
   //if i click on accept
   $(document).on("click", "#btnAccepter", function(){
         compteur++
   for (i = compteur - 1; i < compteur; i++) {
-
         arrayAgent.push(new Agents(selectedName, pause, i));
-
-
-
-
         // totalTimerDiv = $("#ps div").length;
-
-
 /////////////////////////////////////////////////////////////////////////////////////
-
 //add <p>
         // $("#timerDiv_"+i).eq(i).append("<p></p>").css({"font-size" : "1.2rem"});
         // // $(".timerDiv p").eq(i).append("<button>stop</button>");
@@ -201,91 +173,62 @@ $(document).ready(function() {
 //add button
         // $("#ps button").eq(i).attr("id", "btnStop_" + i);
         // $("#ps button").addClass("btn btn-primary p-1");
-
         // $("#ps button").eq(i).on("click", function(){$("#ps div").eq(i).remove();});
-
 /////////////////////////////////////////////////////////////////////////
-
               // $("button").eq(i).attr("id", "btnStart" + i);
               // $("button").eq(i +1).addClass("btn btn-secondary");
               if ($("#customControlInline").prop("checked") == true) {
                   arrayAgent[i].temps(selectedName, pause, 1800000, i);
                   $(".timerDiv p").eq(i).attr("id", "tester" + i).css("background-color" , "#6fd99b");
               }
-
               if ($("#customControlInline").prop("checked") == false) {
                   arrayAgent[i].temps(selectedName, pause, 900000, i);
                   $(".timerDiv p").eq(i).attr("id", "tester" + i).css("background-color" , "#88d7e3");
-
               }
-
               $(".modal").modal("hide");
-
               //if the modal is hidden
                   if($(".modal").on("hide.bs.modal")){
                     $(".modal").find(".modal-body").html("");
                   }
-
       }
-
     });
-
-
-
-
   function Agents(nom, tempsString) {
   this.nom = nom;
   this.tempsString = tempsString;
-
   this.temps = function(agent, pauseDurationString, pauseDuration, increment) {
-
 //suppression de div à prévoir
-
     $("#ps").append("<div></div>").css({"font-size" : "1.2rem"});
-    $("#ps div").eq(increment).addClass("timerDiv");
-    $(".timerDiv").eq(increment).append("<p></p>").css({"font-size" : "1.2rem"});
+    $("#ps div").eq(increment).addClass("timerDiv rounded");
+    $(".timerDiv").eq(increment).append("<p></p>").css({"font-size" : "1.2rem" , "padding" : "4px 4px", "background-color" : "rgba(251, 146, 36, 0.4)", "margin" : "0.5% 0", "box-shadow" : "0 0 16px grey"});
+	if(compteur % 2 == 0){ $(".timerDiv").eq(increment).css({"background-color" : "rgba(52, 140, 235, 0.4)", "padding" : "4px 4px " , "margin" : "0.5% 0"});}
     $(".timerDiv p").eq(increment).after("<button>stop</button>");
     $(".timerDiv button").eq(increment).addClass("btn btn-secondary btnStop");
-
-
+	
+	
     $(".btnStop").eq(increment).on("click", function(){
       // $(".timerDiv").eq(increment).remove();
       // arrayAgent.splice(increment, 1);
       clearInterval(x);
-      $("#tester"+increment).eq(increment).css("background-color" , "grey");
-
-
-
+      $("#tester"+increment).css("background-color" , "grey");
       return;
-
-
     });
-
-
-
-
+	
+	
     var countDownDate = new Date().getTime();
-
     // Update the count down every 1 second
     var x = setInterval(function() {
-
       // Get todays date and time
       var now = new Date().getTime();
-
       // Find the distance between now and the count down date
       var distance = (countDownDate + pauseDuration) - now;
-
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
       // Display the result in the element with id="demo"
       document.getElementById("tester" + increment).innerHTML =
-
       minutes + "m " + seconds + "s "+ agent + pauseDurationString;
-
       // If the count down is finished, write some text
       if (distance < 0) {
         	var modalText = [];
@@ -296,8 +239,6 @@ $(document).ready(function() {
         $("#tester" + increment).css("background-color", "red");
         modalText.push(agent + " est en retard ! " + pauseDurationString + "<br>");
         notifyMe(agent, retard, pauseDurationString );
-
-
         for(i=0; i<modalText.length; i++){
 					$(".modal").find(".modal-body").append(modalText[i]);
 				 }
@@ -305,50 +246,25 @@ $(document).ready(function() {
 					$('#btnAccepter').removeAttr("disabled");
           $(".modal").find(".modal-body").html("");
 				 });
-
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
         // var minutesLabel = document.getElementById("minutes");
         // var secondsLabel = document.getElementById("seconds");
         var totalSeconds = 0;
         var timerOut = setInterval(setTime, 1000);
-
         $(".btnStop").eq(increment).on("click", function(){
           // $(".timerDiv").eq(increment).remove();
           // arrayAgent.splice(increment, 1);
         clearInterval(timerOut);
-
          return;
         });
-
         function setTime() {
           ++totalSeconds;
           document.getElementById("tester" + increment).innerHTML = agent + " en retard depuis :  " + pad(parseInt(totalSeconds / 60)) + " : " + pad(totalSeconds % 60);
           // document.getElementById("tester"+ incrementId).innerHTML = pad(parseInt(totalSeconds/60));
-
-
-
         }
-
         function pad(val) {
           var valString = val + "";
           if (valString.length < 2) {
@@ -356,38 +272,13 @@ $(document).ready(function() {
           } else {
             return valString;
           }
-
-
         }
-
-
       }
-
-
-
     }, 1000);
-
-
-
   }
-
-
-
-
 }
-
-
-
 });
-
-
-
 ////////////////////////////////////////////
-
-
-
-
-
   </script>
 
 
